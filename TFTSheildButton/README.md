@@ -1,18 +1,8 @@
-RPiHY28bShield
+RPiHY28bShield - TFTSheild Button
 ==============
-Raspberrypi 2.8" TFT-LCD Shield : HY28a , HY28b Auto install Script
+This is Button Script for Raspberrypi 2.8" TFT-LCD Shield
 
-pi@openmake ~ $ git clone https://github.com/rasplay/RPiHY28bShield
+pi@openmake ~ $ cd TFTSheildButton
 
-pi@openmake ~ $ cd RPiHY28bShield
+pi@openmake ~ $ sh run.sh
 
-[example]
-
-pi@openmake ~/RPiHY28bShield $ sh setup.sh hy28b
-
-
-[included setup.sh]
-
-hy28a.sh : HY28A Model Setup File
-
-hy28b.sh : HY28B Model Setup File
