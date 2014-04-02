@@ -7,6 +7,9 @@ run_cmd="sh /home/pi/TFTSheildButton/auto_wireless_rasplay.sh"
 
 echo "Run TFT-LCD Button Script."
 
+gpio mode 3 in
+gpio mode 2 in
+
 #Main loop
 while (true); do
   val1=`gpio read 3`
