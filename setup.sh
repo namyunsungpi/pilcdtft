@@ -42,8 +42,11 @@ if [ ! $? -eq 0 ] ; then
     sudo rpi-update
     echo "Packaging Upgrade Process" >> $LOGFILE
     sudo apt-get update;sudo apt-get upgrade -y
-    echo "cmake install Process" >> $LOGFILE
-    sudo apt-get install cmake -y
+    #echo "cmake install Process" >> $LOGFILE
+    #sudo apt-get install cmake -y
+    echo "System Reboot" >> $LOGFILE
+    sudo reboot
+    exit 0
 fi
 
 ####
