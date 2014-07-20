@@ -36,8 +36,13 @@ if [ ! $? -eq 0 ] ; then
     echo "Update rc.local" >> $LOGFILE
     sudo sed -i "/^fi/ a\su -c 'sh $DIRECTORY/setup.sh $DRIVER' pi" /etc/rc.local
 
-    echo "cmake install Process" >> $LOGFILE
+
+    echo "Firmware Upgrade Process" >> $LOGFILE
+    sudo wget http://goo.gl/1BOfJ -O /usr/bin/rpi-update && sudo chmod +x /usr/bin/rpi-update
+    sudo rpi-update
+    echo "Packaging Upgrade Process" >> $LOGFILE
     sudo apt-get update;sudo apt-get upgrade -y
+    echo "cmake install Process" >> $LOGFILE
     sudo apt-get install cmake -y
 fi
 
