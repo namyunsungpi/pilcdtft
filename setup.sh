@@ -35,22 +35,29 @@ grep -q 'setup.sh' /etc/rc.local
 if [ ! $? -eq 0 ] ; then
     echo "Update rc.local" >> $LOGFILE
     sudo sed -i "/^fi/ a\su -c 'sh $DIRECTORY/setup.sh $DRIVER' pi" /etc/rc.local
-fi
 
-if [ ! -f "/usr/local/lib/libwiringPi.so" ]; then
     echo "cmake install Process" >> $LOGFILE
     sudo apt-get update;sudo apt-get upgrade -y
     sudo apt-get install cmake -y
-
-    # wringPi install
-    echo "wiringPi Build Process" >> $LOGFILE
-    cd $DIRECTORY
-    git clone git://git.drogon.net/wiringPi
-    cd wiringPi
-    ./build
-    cd $DIRECTORY
-    echo "wiringPi Build Done" >> $LOGFILE
 fi
+
+####
+# Not Used
+#
+#if [ ! -f "/usr/local/lib/libwiringPi.so" ]; then
+#    echo "cmake install Process" >> $LOGFILE
+#    sudo apt-get update;sudo apt-get upgrade -y
+#    sudo apt-get install cmake -y
+#
+#    # wringPi install
+#    echo "wiringPi Build Process" >> $LOGFILE
+#    cd $DIRECTORY
+#    git clone git://git.drogon.net/wiringPi
+#    cd wiringPi
+#    ./build
+#    cd $DIRECTORY
+#    echo "wiringPi Build Done" >> $LOGFILE
+#fi
 
 if [ ! -d "$DIRECTORY/rpi-fbcp" ]; then
     echo "rpi-fbcp Process" >> $LOGFILE
@@ -117,7 +124,8 @@ sudo REPO_URI=https://github.com/notro/rpi-firmware UPDATE_SELF=0 rpi-update
 
 echo "Almost Done..Touch Pannel Calibration" >> $LOGFILE
 echo "Almost Done..Touch Pannel Calibration"
-sudo TSLIB_FBDEVICE=/dev/fb1 TSLIB_TSDEVICE=/dev/input/event0 ts_calibrate
+TS_EVENT_NO=`grep "ADS7846$Touchscreen$as" /var/log/dmesg |  sed -e "s/^.*\(.\)$/\1/"`
+sudo TSLIB_FBDEVICE=/dev/fb1 TSLIB_TSDEVICE=/dev/input/event$TS_EVENT_NO ts_calibrate
 
 sudo sed -i '/setup.sh/d' /etc/rc.local
 
