@@ -42,8 +42,8 @@ if [ ! $? -eq 0 ] ; then
     sudo rpi-update
     echo "Packaging Upgrade Process" >> $LOGFILE
     sudo apt-get update;sudo apt-get upgrade -y
-    #echo "cmake install Process" >> $LOGFILE
-    #sudo apt-get install cmake -y
+    echo "cmake install Process" >> $LOGFILE
+    sudo apt-get install cmake -y
     echo "System Reboot" >> $LOGFILE
     sudo reboot
     exit 0
@@ -70,7 +70,8 @@ fi
 if [ ! -d "$DIRECTORY/rpi-fbcp" ]; then
     echo "rpi-fbcp Process" >> $LOGFILE
     # SPI enable
-    sudo sed -i 's/blacklist spi-bcm2708/#blacklist spi-bcm2708/g' /etc/modprobe.d/raspi-blacklist.conf
+    #sudo sed -i 's/blacklist spi-bcm2708/#blacklist spi-bcm2708/g' /etc/modprobe.d/raspi-blacklist.conf
+    sudo sed -i '$a\dtparam=spi=on' /boot/config.txt
     echo "SPI enabled" >> $LOGFILE
 
     # notro firmware update
